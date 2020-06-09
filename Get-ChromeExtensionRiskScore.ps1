@@ -19,13 +19,13 @@ Function Get-ChromeExtensionRiskScore {
 .OUTPUTS
 	extension_id - the id of the queried extension
 	version - the extension version
-	ContentSecurityPolicy - 
-	ExternalCalls -
-	Permissions - 
-	OptionalPermissions - 
-	RetireJS - 
-	Webstore - 
-	Total - 
+	ContentSecurityPolicy - https://crxcavator.io/docs#/risk_breakdown?id=content-security-policy
+	ExternalCalls - https://crxcavator.io/docs#/risk_breakdown?id=external-javascript
+	Permissions - https://crxcavator.io/docs#/risk_breakdown?id=permissions-amp-optional-permissions
+	OptionalPermissions - https://crxcavator.io/docs#/risk_breakdown?id=permissions-amp-optional-permissions
+	RetireJS - https://crxcavator.io/docs#/risk_breakdown?id=retirejs
+	Webstore - https://crxcavator.io/docs#/risk_breakdown?id=extension-metadata
+	Total - Total risk score
 
 .EXAMPLE
     PS> Get-ChromeExtensionRiskScore -extension_id cjpalhdlnbpafiamejdnhcphjbkeiagm | ft -a
