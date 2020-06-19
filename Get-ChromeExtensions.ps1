@@ -2,77 +2,96 @@ Function Get-ChromeExtensions {
 <#
 .SYNOPSIS
     Returns a list of installed extensions for Google Chrome
+	
 .DESCRIPTION
     This function checks appdata folder(s) to return a list of installed Chrome extensions for a user or computer. If ComputerName or Username is left blank, the query will run on the local system for all users.
+	
 .NOTES
     Written by: Dan Gassensmith
-    Last Update: 2020-06-08
+    Last Update: 2020-06-19
+	
 .PARAMETER ComputerName
     The hostname of the computer to query. The local system will be queried if this parameter is not specified
 	
 .PARAMETER Username
 	The user ID (as found in C:\Users\) to query for installed extensions
+	
 .OUTPUTS
+	name - The displayname of the extension pulled from manifest
+	description - extension description pulled from manifest
+	version - extension version number
 	extension_id - the 32-character string id of the queried extension
 	username - this is the username value for the appdata folder where the extension was found
+	path - the local or UNC path where the extension is located
+	
 .EXAMPLE
     PS> Get-ChromeExtensions
-	extension_id                     username
-	----                             --------
-	aapocclcgogkmnckokdopfmhonfmgoek DGassensmith8863
-	aohghmighlieiainnegkcijnfilokake DGassensmith8863
-	apdfllckaahabafndbhieahigkjlhalf DGassensmith8863
-	blpcfgokakmgnkcojhhkbfbldkacnbeo DGassensmith8863
-	cjpalhdlnbpafiamejdnhcphjbkeiagm DGassensmith8863
-	felcaaldnbdncclmgdcncolpebgiejap DGassensmith8863
-	ghbmnnjooekpmoecnnnilnnbdlolhkhi DGassensmith8863
-	nmmhkkegccagdldgiimedpiccmgmieda DGassensmith8863
-	pjkljhegncpnkpknbcohdijeoejaedia DGassensmith8863
-	pkedcjkdefgpdelpbcmbmeomcjbeemfm DGassensmith8863
-	aapocclcgogkmnckokdopfmhonfmgoek gassensmithd7622
-	aohghmighlieiainnegkcijnfilokake gassensmithd7622
-	apdfllckaahabafndbhieahigkjlhalf gassensmithd7622
-	blpcfgokakmgnkcojhhkbfbldkacnbeo gassensmithd7622
-	felcaaldnbdncclmgdcncolpebgiejap gassensmithd7622
-	ghbmnnjooekpmoecnnnilnnbdlolhkhi gassensmithd7622
-	nmmhkkegccagdldgiimedpiccmgmieda gassensmithd7622
-	pjkljhegncpnkpknbcohdijeoejaedia gassensmithd7622
-	pkedcjkdefgpdelpbcmbmeomcjbeemfm gassensmithd7622
-    This example gets all installed extensions for all users on the current computer.
+	
+	name                      description                                                              version      extension_id                     username         path
+	----                      -----------                                                              -------      ------------                     --------         ----
+	Slides                    Create and edit presentations                                            0.10         aapocclcgogkmnckokdopfmhonfmgoek DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\aapocclcgogkmnckokdopfmhonfmgoek\0.10_1\manifest.json
+	Docs                      Create and edit documents                                                0.10         aohghmighlieiainnegkcijnfilokake DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\aohghmighlieiainnegkcijnfilokake\0.10_1\manifest.json
+	Google Drive              Google Drive: create, share and keep all your stuff in one place.        14.2         apdfllckaahabafndbhieahigkjlhalf DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\apdfllckaahabafndbhieahigkjlhalf\14.2_1\manifest.json
+	YouTube                                                                                            4.2.8        blpcfgokakmgnkcojhhkbfbldkacnbeo DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\blpcfgokakmgnkcojhhkbfbldkacnbeo\4.2.8_0\manifest.json
+	uBlock Origin             Finally, an efficient blocker. Easy on CPU and memory.                   1.24.4       cjpalhdlnbpafiamejdnhcphjbkeiagm DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\cjpalhdlnbpafiamejdnhcphjbkeiagm\1.24.4_0\manifest.json
+	Sheets                    Create and edit spreadsheets                                             1.2          felcaaldnbdncclmgdcncolpebgiejap DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\felcaaldnbdncclmgdcncolpebgiejap\1.2_1\manifest.json
+	Google Docs Offline       Get things done offline with the Google Docs family of products.         1.7          ghbmnnjooekpmoecnnnilnnbdlolhkhi DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\ghbmnnjooekpmoecnnnilnnbdlolhkhi\1.7_1\manifest.json
+	Chrome Web Store Payments Chrome Web Store Payments                                                1.0.0.5      nmmhkkegccagdldgiimedpiccmgmieda DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.5_0\manifest.json
+	Gmail                     Fast, searchable email with less spam.                                   8.2          pjkljhegncpnkpknbcohdijeoejaedia DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\pjkljhegncpnkpknbcohdijeoejaedia\8.2_0\manifest.json
+	Chrome Media Router       Provider for discovery and services for mirroring of Chrome Media Router 8320.407.0.1 pkedcjkdefgpdelpbcmbmeomcjbeemfm DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\pkedcjkdefgpdelpbcmbmeomcjbeemfm\8320.407.0.1_0\manifest.json
+	Slides                    Create and edit presentations                                            0.10         aapocclcgogkmnckokdopfmhonfmgoek gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\aapocclcgogkmnckokdopfmhonfmgoek\0.10_0\manifest.json
+	Docs                      Create and edit documents                                                0.10         aohghmighlieiainnegkcijnfilokake gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\aohghmighlieiainnegkcijnfilokake\0.10_0\manifest.json
+	Google Drive              Google Drive: create, share and keep all your stuff in one place.        14.2         apdfllckaahabafndbhieahigkjlhalf gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\apdfllckaahabafndbhieahigkjlhalf\14.2_0\manifest.json
+	YouTube                                                                                            4.2.8        blpcfgokakmgnkcojhhkbfbldkacnbeo gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\blpcfgokakmgnkcojhhkbfbldkacnbeo\4.2.8_0\manifest.json
+	Sheets                    Create and edit spreadsheets                                             1.2          felcaaldnbdncclmgdcncolpebgiejap gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\felcaaldnbdncclmgdcncolpebgiejap\1.2_0\manifest.json
+	Google Docs Offline       Get things done offline with the Google Docs family of products.         1.7          ghbmnnjooekpmoecnnnilnnbdlolhkhi gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\ghbmnnjooekpmoecnnnilnnbdlolhkhi\1.7_1\manifest.json
+	Chrome Web Store Payments Chrome Web Store Payments                                                1.0.0.5      nmmhkkegccagdldgiimedpiccmgmieda gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.5_0\manifest.json
+	Gmail                     Fast, searchable email with less spam.                                   8.2          pjkljhegncpnkpknbcohdijeoejaedia gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\pjkljhegncpnkpknbcohdijeoejaedia\8.2_0\manifest.json
+	Chrome Media Router       Provider for discovery and services for mirroring of Chrome Media Router 8320.407.0.1 pkedcjkdefgpdelpbcmbmeomcjbeemfm gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\pkedcjkdefgpdelpbcmbmeomcjbeemfm\8320.407.0.1_0\manifest.json
+	Chrome Media Router       Provider for discovery and services for mirroring of Chrome Media Router 7819.902.0.1 pkedcjkdefgpdelpbcmbmeomcjbeemfm gassensmithd7622 C:\Users\gassensmithd7622\appdata\local\google\chrome\user data\default\extensions\pkedcjkdefgpdelpbcmbmeomcjbeemfm\7819.902.0.1_0\manifest.json
+    
+	This example gets all installed extensions for all users on the current computer.
 	
 .EXAMPLE
-	PS> Get-ChromeExtensions -ComputerName LAK03S-176426 -Username dgassensmith8863
+	PS> Get-ChromeExtensions -ComputerName LAK07N-203779 -Username mstigler-riley | ft -a
 	
-	extension_id                     username
-	----                             --------
-	aapocclcgogkmnckokdopfmhonfmgoek dgassensmith8863
-	aohghmighlieiainnegkcijnfilokake dgassensmith8863
-	apdfllckaahabafndbhieahigkjlhalf dgassensmith8863
-	blpcfgokakmgnkcojhhkbfbldkacnbeo dgassensmith8863
-	cjpalhdlnbpafiamejdnhcphjbkeiagm dgassensmith8863
-	felcaaldnbdncclmgdcncolpebgiejap dgassensmith8863
-	ghbmnnjooekpmoecnnnilnnbdlolhkhi dgassensmith8863
-	nmmhkkegccagdldgiimedpiccmgmieda dgassensmith8863
-	pjkljhegncpnkpknbcohdijeoejaedia dgassensmith8863
-	pkedcjkdefgpdelpbcmbmeomcjbeemfm dgassensmith8863
+	name                      description                                                                                                                          version         extension_id                     username       path
+	----                      -----------                                                                                                                          -------         ------------                     --------       ----
+	Slides                    Create and edit presentations                                                                                                        0.10            aapocclcgogkmnckokdopfmhonfmgoek mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\aapocclcgogkmnckokdopfmhonfmgoek\0.10_0\manifest.json
+	My Quick Converter        Search and access popular converter quick links instantly from your new tab page!                                                    7.0             aknlelmioblfeomeemciaomipejabhgk mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\aknlelmioblfeomeemciaomipejabhgk\7.0_0\manifest.json
+	Docs                      Create and edit documents                                                                                                            0.10            aohghmighlieiainnegkcijnfilokake mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\aohghmighlieiainnegkcijnfilokake\0.10_0\manifest.json
+	Google Drive              Google Drive: create, share and keep all your stuff in one place.                                                                    14.1            apdfllckaahabafndbhieahigkjlhalf mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\apdfllckaahabafndbhieahigkjlhalf\14.1_0\manifest.json
+	PackageTracking           Never lose track of a package again! Easily track incoming and outgoing shipping with PackageTrackingâ„¢!                            13.931.18.11269 bamfmecoljgjbaelcceoocomemmncndn mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\bamfmecoljgjbaelcceoocomemmncndn\13.931.18.11269_0\manifest.json
+	PackageTracking           Never lose track of a package again! Easily track incoming and outgoing shipping with PackageTrackingâ„¢!                            13.930.17.62268 bamfmecoljgjbaelcceoocomemmncndn mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\bamfmecoljgjbaelcceoocomemmncndn\13.930.17.62268_0\manifest.json
+	YouTube                                                                                                                                                        4.2.8           blpcfgokakmgnkcojhhkbfbldkacnbeo mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\blpcfgokakmgnkcojhhkbfbldkacnbeo\4.2.8_0\manifest.json
+	Sheets                    Create and edit spreadsheets                                                                                                         1.2             felcaaldnbdncclmgdcncolpebgiejap mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\felcaaldnbdncclmgdcncolpebgiejap\1.2_0\manifest.json
+	Google Docs Offline       Edit, create, and view your documents, spreadsheets, and presentations â€” all without internet access.                              1.11.0          ghbmnnjooekpmoecnnnilnnbdlolhkhi mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\ghbmnnjooekpmoecnnnilnnbdlolhkhi\1.11.0_0\manifest.json
+	Search Extension by Ask   Convenient browsing tools. Disabling this extension won't uninstall the associated program; for instructions: support.mindspark.com  50.186.18.6636  lgfehfbnofiffladdncogfobimealokp mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\lgfehfbnofiffladdncogfobimealokp\50.186.18.6636_0\manifest.json
+	Search Extension by Ask   Convenient browsing tools. Disabling this extension won't uninstall the associated program; for instructions: support.mindspark.com  50.184.17.35688 lgfehfbnofiffladdncogfobimealokp mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\lgfehfbnofiffladdncogfobimealokp\50.184.17.35688_0\manifest.json
+	My Quick Converter        Search and access popular converter quick links instantly from your new tab page!                                                    7.0             lmibdmeehggmjlpiafcbanaaecagcfmg mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\lmibdmeehggmjlpiafcbanaaecagcfmg\7.0_0\manifest.json
+	Chrome Web Store Payments Chrome Web Store Payments                                                                                                            1.0.0.5         nmmhkkegccagdldgiimedpiccmgmieda mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.5_0\manifest.json
+	Gmail                     Fast, searchable email with less spam.                                                                                               8.2             pjkljhegncpnkpknbcohdijeoejaedia mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\pjkljhegncpnkpknbcohdijeoejaedia\8.2_0\manifest.json
+	Chrome Media Router       Provider for discovery and services for mirroring of Chrome Media Router                                                             8320.407.0.1    pkedcjkdefgpdelpbcmbmeomcjbeemfm mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\pkedcjkdefgpdelpbcmbmeomcjbeemfm\8320.407.0.1_0\manifest.json
+	Chrome Media Router       Provider for discovery and services for mirroring of Chrome Media Router                                                             8220.319.1.2    pkedcjkdefgpdelpbcmbmeomcjbeemfm mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\pkedcjkdefgpdelpbcmbmeomcjbeemfm\8220.319.1.2_0\manifest.json
+	Search Encrypt            Keep your searches private by redirecting searches that may be tracked to Search Encrypt, a privacy-focused search engine.           2.2.19          podikjakdikbemkikedommggnijhgnaj mstigler-riley \\LAK07N-203779\c$\Users\mstigler-riley\appdata\local\google\chrome\user data\default\extensions\podikjakdikbemkikedommggnijhgnaj\2.2.19_0\manifest.json
 	
-	This example gets installed extensions on computer 'LAK03S-176426' for user 'dgassensmith8863'
+	This example gets installed extensions on computer 'LAK07N-203779' for user 'mstigler-riley'
 	
 .EXAMPLE
 	PS> Get-ChromeExtensions -Username dgassensmith8863
 	
-	extension_id                     username
-	----                             --------
-	aapocclcgogkmnckokdopfmhonfmgoek dgassensmith8863
-	aohghmighlieiainnegkcijnfilokake dgassensmith8863
-	apdfllckaahabafndbhieahigkjlhalf dgassensmith8863
-	blpcfgokakmgnkcojhhkbfbldkacnbeo dgassensmith8863
-	cjpalhdlnbpafiamejdnhcphjbkeiagm dgassensmith8863
-	felcaaldnbdncclmgdcncolpebgiejap dgassensmith8863
-	ghbmnnjooekpmoecnnnilnnbdlolhkhi dgassensmith8863
-	nmmhkkegccagdldgiimedpiccmgmieda dgassensmith8863
-	pjkljhegncpnkpknbcohdijeoejaedia dgassensmith8863
-	pkedcjkdefgpdelpbcmbmeomcjbeemfm dgassensmith8863
+	name                      description                                                              version      extension_id                     username         path
+	----                      -----------                                                              -------      ------------                     --------         ----
+	Slides                    Create and edit presentations                                            0.10         aapocclcgogkmnckokdopfmhonfmgoek DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\aapocclcgogkmnckokdopfmhonfmgoek\0.10_1\manifest.json
+	Docs                      Create and edit documents                                                0.10         aohghmighlieiainnegkcijnfilokake DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\aohghmighlieiainnegkcijnfilokake\0.10_1\manifest.json
+	Google Drive              Google Drive: create, share and keep all your stuff in one place.        14.2         apdfllckaahabafndbhieahigkjlhalf DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\apdfllckaahabafndbhieahigkjlhalf\14.2_1\manifest.json
+	YouTube                                                                                            4.2.8        blpcfgokakmgnkcojhhkbfbldkacnbeo DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\blpcfgokakmgnkcojhhkbfbldkacnbeo\4.2.8_0\manifest.json
+	uBlock Origin             Finally, an efficient blocker. Easy on CPU and memory.                   1.24.4       cjpalhdlnbpafiamejdnhcphjbkeiagm DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\cjpalhdlnbpafiamejdnhcphjbkeiagm\1.24.4_0\manifest.json
+	Sheets                    Create and edit spreadsheets                                             1.2          felcaaldnbdncclmgdcncolpebgiejap DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\felcaaldnbdncclmgdcncolpebgiejap\1.2_1\manifest.json
+	Google Docs Offline       Get things done offline with the Google Docs family of products.         1.7          ghbmnnjooekpmoecnnnilnnbdlolhkhi DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\ghbmnnjooekpmoecnnnilnnbdlolhkhi\1.7_1\manifest.json
+	Chrome Web Store Payments Chrome Web Store Payments                                                1.0.0.5      nmmhkkegccagdldgiimedpiccmgmieda DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\nmmhkkegccagdldgiimedpiccmgmieda\1.0.0.5_0\manifest.json
+	Gmail                     Fast, searchable email with less spam.                                   8.2          pjkljhegncpnkpknbcohdijeoejaedia DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\pjkljhegncpnkpknbcohdijeoejaedia\8.2_0\manifest.json
+	Chrome Media Router       Provider for discovery and services for mirroring of Chrome Media Router 8320.407.0.1 pkedcjkdefgpdelpbcmbmeomcjbeemfm DGassensmith8863 C:\Users\DGassensmith8863\appdata\local\google\chrome\user data\default\extensions\pkedcjkdefgpdelpbcmbmeomcjbeemfm\8320.407.0.1_0\manifest.json
 	
 	This example gets installed extensions for user 'dgassensmith8863' on the local computer
 	
@@ -82,33 +101,6 @@ Param(
 	[String]$Username
 	)
 	Function Get-ChromeExtensionLocalManifest {
-	<#
-	.SYNOPSIS
-		Looks up Chrome Webstore information for the specified extension id
-	.DESCRIPTION
-		This function performs a Rest API query using Cisco's CRXcavator service. API documentation can be found here: https://crxcavator.io/apidocs
-	.NOTES
-		Written by: Dan Gassensmith
-		Last Update: 2020-06-08
-	.PARAMETER extension_id
-		The 32-character unique ID of the extension to query. 
-	.OUTPUTS
-		extension_id - the id of the queried extension
-		name - the extension display name
-		short_description - brief description of the extension's purpose
-		users - total number of Chrome users who use the extension
-		rating - average user rating on a scale from 1 to 5
-		rating_users - number of users who have submitted a rating for the extension
-	.EXAMPLE
-		PS> Get-ChromeExtensionInfo -extension_id cjpalhdlnbpafiamejdnhcphjbkeiagm
-		extension_id      : cjpalhdlnbpafiamejdnhcphjbkeiagm
-		name              : uBlock Origin
-		short_description : Finally, an efficient blocker. Easy on CPU and memory.
-		users             : 10000000
-		rating            : 4.7069807
-		rating_users      : 22490
-		This example gets the extension info for the uBlock Origin extension
-	#>
 	Param(
 		[Parameter(Mandatory=$true)]
 		[String]$extension_id,
